@@ -358,6 +358,9 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
 .segmented{display:flex;background:#EFEBE6;border-radius:13px;padding:4px;margin:2px 0 0}
 .segmented button{flex:1;height:38px;border-radius:10px;font-size:13.5px;font-weight:700;color:var(--mute)}
 .segmented button.on{background:#fff;color:var(--o);box-shadow:0 1px 4px rgba(30,20,10,.1)}
+.fridge-emoji{position:relative;display:inline-block;width:13px;height:17px;margin-right:4px;border:1.5px solid currentColor;border-radius:3px;box-sizing:border-box;vertical-align:-4px}
+.fridge-emoji::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:1.5px solid currentColor}
+.fridge-emoji::after{content:"";position:absolute;right:2px;top:2px;width:1.5px;height:3px;border-radius:1px;background:currentColor;box-shadow:0 7px 0 currentColor}
 
 /* ── coach (new) ─────────────────────── */
 .cprog{height:6px;border-radius:4px;background:#E6EFE8;overflow:hidden;margin:4px 0 14px}
@@ -436,7 +439,7 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
 
 /* ── live camera ─────────────────────── */
 .scanstage video{width:100%;height:100%;object-fit:cover;display:block;background:#111}
-.camtoggle{position:absolute;left:14px;bottom:14px;background:#26221FEE;color:#fff;font-size:12px;font-weight:700;padding:9px 14px;border-radius:999px;display:flex;gap:6px;align-items:center;z-index:8;border:0}
+.camtoggle{display:none!important}
 .camtoggle:active{transform:scale(.96)}
 .livebadge{position:absolute;left:14px;bottom:14px;background:#12B981EE;color:#fff;font-size:11px;font-weight:800;padding:7px 12px;border-radius:999px;display:none;gap:6px;align-items:center;z-index:8}
 .livebadge.on{display:flex}
@@ -478,7 +481,7 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
       </div>
       <div class="pad" style="padding-top:10px">
         <div class="segmented" id="scanSeg">
-          <button class="on" onclick="setMode('fridge')" id="segF">🧊 냉장고</button>
+          <button class="on" onclick="setMode('fridge')" id="segF"><span class="fridge-emoji" aria-hidden="true"></span>냉장고</button>
           <button onclick="setMode('receipt')" id="segR">🧾 영수증</button>
         </div>
         <div style="height:12px"></div>
@@ -491,7 +494,7 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
         <video id="camFeed" autoplay playsinline muted style="display:none"></video>
         <canvas id="camCanvas" style="display:none"></canvas>
         <input id="scanFileInput" type="file" accept="image/*" hidden onchange="handleScanFile(event)">
-        <button class="camtoggle" id="camToggle" onclick="event.stopPropagation();openScanCamera()">📷 카메라 켜기</button>
+        <button class="camtoggle" id="camToggle" type="button" hidden aria-hidden="true" tabindex="-1" onclick="event.stopPropagation();openScanCamera()">📷 카메라 켜기</button>
         <div class="livebadge" id="liveBadge"><span class="dotpulse"></span>LIVE</div>
         <div class="reticle"></div>
         <div class="scanline"></div>
