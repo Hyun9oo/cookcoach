@@ -175,6 +175,92 @@
     ];
   }
 
+  function syncRecipeStepHelp() {
+    const helpByRecipe = {
+      yubu: {
+        1: [
+          ['두부 속이 너무 질어서 유부에서 흘러나와요!', '두부에 수분이 많이 남았어요. 키친타월로 한 번 더 눌러 물기를 제거해주세요.']
+        ],
+        4: [
+          ['유부가 자꾸 찢어져요!', '속을 너무 많이 넣지 말고 유부의 80% 정도만 채워주세요.']
+        ],
+        5: [
+          ['두부가 너무 밍밍해요!', '유부 자체에 간이 있으니 먼저 완성한 뒤 맛을 보고, 부족하면 소금이나 간장을 아주 조금 추가해요.']
+        ]
+      },
+      poke: {
+        2: [
+          ['아보카도를 잘랐는데 너무 딱딱해요!', '억지로 사용하지 않아도 괜찮아요. 달걀을 조금 늘리거나 두부·옥수수 등 보유 재료로 대체할 수 있어요.']
+        ],
+        3: [
+          ['새우에서 물이 계속 나와요!', '굽기 전 새우의 물기를 키친타월로 제거해주세요. 이미 굽고 있다면 팬에 고인 물을 제거한 뒤 센 불에서 짧게 익혀요.'],
+          ['새우가 질겨졌어요!', '너무 오래 익혔을 가능성이 커요. 다음 새우는 전체가 불투명하게 익는 시점에 바로 불을 꺼주세요.']
+        ],
+        4: [
+          ['소스가 너무 짜요!', '레몬즙이나 물을 조금 추가해 농도를 조절해주세요. 처음부터 전부 붓지 않고 조금씩 섞는 것도 좋아요.']
+        ]
+      },
+      salmon: {
+        2: [
+          ['연어 겉면은 타는데 속은 덜 익은 것 같아요!', '불이 너무 강해요. 약불로 낮추고 뚜껑을 덮어 속까지 천천히 익혀주세요.'],
+          ['연어가 팬에 붙어서 뒤집어지지 않아요!', '바로 억지로 떼지 마세요. 표면이 충분히 익으면 팬에서 비교적 자연스럽게 떨어져요. 조금 더 기다렸다가 뒤집어주세요.']
+        ],
+        4: [
+          ['크림소스가 너무 묽어요!', '약불에서 조금 더 졸여주세요. 그래도 묽다면 파르메산 치즈를 조금 추가해 농도를 맞춰요.'],
+          ['크림소스가 너무 꾸덕해졌어요!', '우유을 한두 숟갈씩 넣으면서 원하는 농도로 풀어주세요.']
+        ],
+        5: [
+          ['레몬을 넣었더니 소스가 분리된 것 같아요!', '강한 불에서 산성인 레몬즙을 넣으면 소스가 분리될 수 있어요. 불을 줄이거나 끈 뒤 레몬즙을 넣고 천천히 섞어주세요.']
+        ]
+      },
+      gyudon: {
+        1: [['양파를 너무 두껍게 썰었어요!', '걱정하지말아요! 익히는 과정에서 고기를 좀 덜 익힌 다음에 양파를 넣으면 됩니다. 만약, 양파가 얇다면 반대로 하면 돼요!!']],
+        2: [['설탕이 잘 녹지 않아요.', '그럴땐, 숟가락으로 바닥을 긁듯이 하면, 잘 녹아요! 계속 젓다보면 녹아요! 노력은 배신하지 않는답니다~!']],
+        3: [['고기를 40%만 익힌 상태가 뭔지 모르겠어요.', '저 수치는 절대적인 수치가 아니에요! 고기 겉면은 갈색으로 변했지만, 안쪽에 붉은 부분이 조금 남아있는 상태입니다.']],
+        4: [['소스가 자작한 상태인지 모르겠어요.', '팬을 기울였을 때, 소스가 바닥에 얇게 남아 흐르는 정도면 충분해요. 국물이 아닌 조림을 떠오르면 쉬울거에요!']],
+        5: [['계란이 너무 익어버렸어요.', '바로 불을 끄고, 뚜껑을 열어주세요. 팬의 잔열로 계속 익기 때문에 가열하지 않은 화구로 팬을 이동시키면 됩니다!']],
+        6: [['밥 위에 재료를 어떻게 올려야 예쁘게 보이나요?', '자작한 소스를 밥위에 먼저 골고루 뿌리고, 그 위에 계란으로 인해 덩어리진 구자이를 넓적한 뒤집개를 이용해 올려주세요!']]
+      },
+      shabu: {
+        1: [['채소 크기가 제각각이에요.', '채소 손질과 양은 절대적인 수치가 아닌 사용자의 기호에 맞게 손질하셔도 됩니다!']],
+        2: [['소스가 너무 셔요', '그럴땐, 물 1T와 설탕 0.5T를 넣어주세요! 만약 해결이 안된다면, 다시 이 과정을 반복해주세요!']],
+        3: [['육수가 너무 짜요', '물을 100ml씩 추가하면서 간을 확인해주세요. 이후 채소에서 물이 나오기 때문에, 처음에는 약간 짭짤한 정도가 적당해요.']],
+        4: [['냄비에 채소가 너무 많아 보여요.', '채소는 익으면서 부피가 줄어드니 걱정마세요! 숨이 살짝 죽으면, 국자로 채소를 눌러주면 국물에 푹 잠겨요.']],
+        5: [['소고기가 질겨요.', '얇은 소고기는 오래 끓일 수록 질겨져요. 붉은 색이 사라진 뒤 5초 안에 바로 건져주세요.']],
+        6: [['우동을 넣었더니 국물이 너무 싱거워졌어요.', '쯔유를 0.5T 단위로 추가하면서, 국물의 간을 맞춰주세요.']]
+      },
+      garlicshrimp: {
+        1: [['새우에서 물이 계속 나와요.', '새우 표면에 물기가 남아 있으면, 구울 때 기름이 튀고 노릇하게 익지 않아요. 물기를 키친타올로 잘 닦아 주되, 새우가 으스러지지않게 겉면만 닦아주세요.']],
+        2: [['파스타면이 알맞게 익었는지 모르겠어요.', '면 한 가닥을 먹어봤을 때 겉은 부드럽지만 약간 단단한 식감이 남아있으면 적당히 익은 거에요. 추후에 팬에서 익힐거나 살짝 덜 익혀야 해요.']],
+        3: [['새우가 너무 단단하고 질겨졌어요.', '새우는 오래 익히면 O자 모양으로 둥글게 말리면서 질겨져요. 전체가 분홍색으로 변하고 C자 모양이 되면 바로 팬에서 꺼내주세요.']],
+        4: [['마늘이 빠르게 갈색으로 변하고 있어요.', '팬을 바로 불에서 안쓰는 화구로 내려주세요. 마늘은 잔열로도 계속 익어요. 마늘이 타면 쓴맛이 날 수 있으니 건져내세요.']],
+        5: [['버터소스가 면에 붙지 않고 기름처럼 따로 놀아요.', '면수 1~2T를 추가하고 집게로 면을 빠르게 섞어주세요. 면수의 전분이 버터와 오일을 섞어 부드러운 소스로 만들어줘요.']],
+        6: [['새우와 파스타를 근사하게 담기 어려워요.', '면 세팅 -> 소스 붓기 -> 새우 세팅 -> 부가재료 첨가하기 순서로 진행하면 원활하게 될거에요!']]
+      },
+      gambas: {
+        5: [['물기가 남은 새우를 넣어 기름이 심하게 튀는 경우', '즉시 불을 끄고 팬을 뚜껑으로 일부 가린다. 기름이 진정되면 남은 새우의 물기를 다시 닦고, 약불에서 조금씩 넣어 조리한다. 기름에 물을 넣으면 안 된다.']]
+      },
+      dubu: {
+        4: [['두부가 팬에 달라붙어 뒤집을 때 부서지는 경우', '억지로 떼지 말고 1~2분 더 구워 표면에 노릇한 막이 생길 때까지 기다린다. 이후 넓은 뒤집개를 두부 아래까지 넣어 한 번에 뒤집는다.']]
+      },
+      pork: {
+        6: [['굽는 도중 야채말이가 풀리는 경우', '풀린 말이를 집게로 다시 모아 이음매가 아래로 가게 놓는다. 계속 풀리면 이쑤시개로 임시 고정해 굽고, 플레이팅 전에 반드시 제거한다.']]
+      }
+    };
+
+    RECIPES.forEach(recipe => {
+      const recipeHelp = helpByRecipe[recipe.id] || {};
+      recipe.steps.forEach((step, index) => {
+        const helps = (recipeHelp[index + 1] || []).map(item => ({ question: item[0], answer: item[1] }));
+        delete step.help;
+        delete step.helps;
+        if (!helps.length) return;
+        step.helps = helps;
+        step.help = helps[0];
+      });
+    });
+  }
+
   function stepTitle(step) {
     return step.title || step.t || '';
   }
@@ -280,6 +366,8 @@
     document.querySelectorAll('.view').forEach(view => view.classList.remove('on'));
     const nextView = document.getElementById(`v-${id}`);
     if (!nextView) return;
+    const screen = document.getElementById('screen');
+    if (screen) screen.scrollTop = 0;
     nextView.classList.add('on');
     nextView.querySelectorAll('.scroll').forEach(scroll => { scroll.scrollTop = 0; });
     syncTabs(id);
@@ -340,6 +428,12 @@
   window.startCookCoach = function () {
     const splash = document.getElementById('splash');
     if (splash) splash.classList.add('hide');
+    const screen = document.getElementById('screen');
+    if (screen) {
+      screen.scrollTop = 0;
+      requestAnimationFrame(() => { screen.scrollTop = 0; });
+    }
+    if (document.activeElement && typeof document.activeElement.blur === 'function') document.activeElement.blur();
     scanSession = createScanSession();
     setScanPhase('fridge');
   };
@@ -721,7 +815,7 @@
     const pool = others.length ? others : RECIPES.filter(recipe => recipe.id !== top.id).slice(0, 3);
     const missingItems = missingRequirements(top);
     const rate = haveRate(top);
-    document.getElementById('cookHeadline').innerHTML = `약 ${top.time}분 안에 가능한<br><span class="hl">${conceptWord(top.concept)} 메뉴</span> ${1 + pool.length}개예요`;
+    document.getElementById('cookHeadline').innerHTML = `<span class="hl">${conceptWord(sel.concept)} 메뉴</span> 1개예요`;
     document.getElementById('planPill').textContent = `PLAN · ${CW[sel.who]}`;
     document.getElementById('topReco').innerHTML = `
       <div class="hero" onclick="openRecipe('${top.id}')">
@@ -953,8 +1047,15 @@
   }
 
   function calculateStreak() {
-    const dates = new Set(mealHistory.map(record => record.date));
-    let cursor = new Date();
+    const dates = new Set(mealHistory.map(record => record.date).filter(date => /^\d{4}-\d{2}-\d{2}$/.test(String(date))));
+    if (!dates.size) return 0;
+    const todayKey = localDateKey(new Date());
+    const anchorKey = dates.has(todayKey)
+      ? todayKey
+      : Array.from(dates).filter(date => date <= todayKey).sort().pop();
+    if (!anchorKey) return 0;
+    const parts = anchorKey.split('-').map(Number);
+    let cursor = new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0, 0);
     let count = 0;
     while (dates.has(localDateKey(cursor))) {
       count += 1;
@@ -986,11 +1087,27 @@
     wrapper.innerHTML = mediaContent(recipeHeroSource(recipe), recipe.n, '메뉴 이미지 준비 중', 'REVIEW');
   }
 
+  let completedMealToken = '';
+  let recordedMealToken = '';
+
+  const phase2Finish = window.finish;
+  window.finish = function () {
+    completedMealToken = `${Date.now()}-${cur ? cur.id : 'meal'}`;
+    recordedMealToken = '';
+    phase2Finish();
+  };
+
   window.recordMeal = function () {
     if (!cur) return;
+    if (!completedMealToken) completedMealToken = `${Date.now()}-${cur.id}`;
+    if (recordedMealToken === completedMealToken) {
+      go('mypage', false);
+      return;
+    }
+    recordedMealToken = completedMealToken;
     const now = new Date();
     const record = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      id: `meal-${completedMealToken}`,
       recipeId: cur.storageId || cur.id,
       recipeName: cur.n,
       completedAt: now.toISOString(),
@@ -1087,6 +1204,7 @@
   function initializePhase2() {
     addIngredientVocabulary();
     syncGyudonRecipe();
+    syncRecipeStepHelp();
     loadPantry();
     mealHistory = mealHistory.filter(record => record && record.id && record.recipeName && record.date);
     ensureDemoMealHistory();
@@ -1107,6 +1225,13 @@
   window.CookCoachPhase2 = {
     getScanSession: () => JSON.parse(JSON.stringify(scanSession)),
     getMealHistory: () => JSON.parse(JSON.stringify(mealHistory)),
+    getRecipeStepHelp: recipeId => {
+      const recipe = R(recipeId);
+      return recipe ? recipe.steps.map((step, index) => ({
+        step: index + 1,
+        helps: JSON.parse(JSON.stringify(step.helps || (step.help ? [step.help] : [])))
+      })) : [];
+    },
     getMissingRequirements: recipeId => missingRequirements(R(recipeId)).map(requirementText),
     getRecipeHeroSource: recipeId => recipeHeroSource(R(recipeId)),
     renderRecipeHeroMedia: (recipeId, className) => {

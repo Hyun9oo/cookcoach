@@ -10,11 +10,31 @@
   const phase2RestartScanFlow = window.restartScanFlow;
 
   const DEFAULT_GOALS = [
-    { id: 'lose', label: '체중 감량', description: '하루 1,800kcal · 단백질 70g' },
-    { id: 'sodium', label: '저나트륨 식단', description: '나트륨 2,000mg 이하' },
-    { id: 'sugar', label: '저당 식단', description: '당류 50g 이하' },
-    { id: 'veggie', label: '채식 위주 식단', description: '채소·식물성 단백 중심' },
-    { id: 'protein', label: '고단백 식단', description: '단백질 120g 이상' }
+    {
+      id: 'lose', label: '체중 감량', description: '하루 1,800kcal · 단백질 70g',
+      summary: '식사 기록을 기준으로 한 끼 열량과 단백질 균형을 함께 살펴봐요.',
+      criteria: ['🍽 한 끼 열량 범위 살펴보기', '🥩 단백질 70g 목표 확인', '📅 직접 요리한 날 꾸준히 기록']
+    },
+    {
+      id: 'sodium', label: '저나트륨 식단', description: '나트륨 2,000mg 이하',
+      summary: '소스와 국물 사용 기록을 중심으로 나트륨 섭취 경향을 살펴봐요.',
+      criteria: ['🧂 나트륨 2,000mg 이하 지향', '🥣 국물·소스 섭취 빈도 확인', '🌿 허브·향신료 활용 메뉴 살펴보기']
+    },
+    {
+      id: 'sugar', label: '저당 식단', description: '당류 50g 이하',
+      summary: '단맛이 강한 소스와 음료 기록을 중심으로 당류 섭취 경향을 살펴봐요.',
+      criteria: ['🍬 당류 50g 이하 지향', '🥤 단 음료·소스 기록 확인', '🥗 식이섬유가 있는 식사 살펴보기']
+    },
+    {
+      id: 'veggie', label: '채식 위주 식단', description: '채소·식물성 단백 중심',
+      summary: '채소와 식물성 단백질이 포함된 한 끼의 빈도를 살펴봐요.',
+      criteria: ['🥬 채소가 포함된 한 끼 기록', '🫘 식물성 단백질 메뉴 확인', '🌈 다양한 채소 구성 살펴보기']
+    },
+    {
+      id: 'protein', label: '고단백 식단', description: '단백질 120g 이상',
+      summary: '끼니별 단백질 메뉴 기록과 전체 식사 균형을 함께 살펴봐요.',
+      criteria: ['🥩 단백질 120g 목표 확인', '🍳 끼니별 단백질 메뉴 기록', '⚖️ 채소·탄수화물과 균형 살펴보기']
+    }
   ];
 
   let cameraRequest = null;
@@ -39,6 +59,8 @@
         id: goalOption.id,
         label: goalOption.label,
         description: goalOption.description,
+        summary: goalOption.summary,
+        criteria: goalOption.criteria.slice(),
         custom: false,
         selected: goalOption.id === 'lose'
       }))
@@ -55,6 +77,8 @@
         id: option.id,
         label: option.label,
         description: option.description,
+        summary: option.summary,
+        criteria: option.criteria.slice(),
         custom: false,
         selected: stored ? Boolean(stored.selected) : option.id === 'lose'
       };
@@ -65,6 +89,8 @@
         id: String(item.id || `custom-${Date.now()}`),
         label: item.label.trim().slice(0, MAX_HEALTH_GOAL_LENGTH),
         description: '직접 추가한 목표',
+        summary: `${item.label.trim().slice(0, MAX_HEALTH_GOAL_LENGTH)}을 꾸준히 실천할 수 있도록 요리 기록을 중심으로 살펴봐요.`,
+        criteria: ['📝 목표와 관련된 한 끼 기록 남기기', '📅 실천한 날짜를 캘린더에서 확인', '🔎 기록의 흐름을 참고용으로 살펴보기'],
         custom: true,
         selected: Boolean(item.selected)
       }));
@@ -214,13 +240,23 @@
     const selected = selectedHealthGoals();
     const badge = document.getElementById('goalBadge');
     const text = document.getElementById('goalText');
-    if (!badge || !text) return;
+    const details = document.getElementById('goalDetails');
+    if (!badge || !text || !details) return;
     badge.textContent = selected.length
       ? `${selected[0].label}${selected.length > 1 ? ` 외 ${selected.length - 1}개` : ''} 🎯`
       : '건강 목표를 선택해 주세요 🎯';
     text.innerHTML = selected.length
-      ? `현재 목표는 <b>${selected.map(item => escapeHtml(item.label)).join(' · ')}</b>이에요.<br>선택한 목표는 이 기기에 안전하게 저장돼요.`
+      ? `현재 목표는 <b>${selected.map(item => escapeHtml(item.label)).join(' · ')}</b>이에요.<br>요리 기록을 바탕으로 아래 기준을 참고해요.`
       : '선택한 건강 목표가 없어요.<br>기본 목표를 선택하거나 직접 목표를 추가해 보세요.';
+    details.innerHTML = selected.length
+      ? selected.map(goalItem => {
+          const summary = goalItem.summary || `${goalItem.label}을 꾸준히 실천할 수 있도록 요리 기록을 중심으로 살펴봐요.`;
+          const criteria = Array.isArray(goalItem.criteria) && goalItem.criteria.length
+            ? goalItem.criteria
+            : ['📝 목표와 관련된 한 끼 기록 남기기', '📅 실천한 날짜를 캘린더에서 확인', '🔎 기록의 흐름을 참고용으로 살펴보기'];
+          return `<div class="goal-detail-group"><strong>${escapeHtml(goalItem.label)}</strong><p>${escapeHtml(summary)}</p>${criteria.map(item => `<div class="gl">${escapeHtml(item)}</div>`).join('')}</div>`;
+        }).join('')
+      : '<div class="day-empty">목표를 선택하면 목표별 참고 기준이 표시돼요.</div>';
   }
 
   window.renderGoal = function () {
@@ -268,6 +304,8 @@
       id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       label: label.slice(0, MAX_HEALTH_GOAL_LENGTH),
       description: '직접 추가한 목표',
+      summary: `${label.slice(0, MAX_HEALTH_GOAL_LENGTH)}을 꾸준히 실천할 수 있도록 요리 기록을 중심으로 살펴봐요.`,
+      criteria: ['📝 목표와 관련된 한 끼 기록 남기기', '📅 실천한 날짜를 캘린더에서 확인', '🔎 기록의 흐름을 참고용으로 살펴보기'],
       custom: true,
       selected: true
     });
@@ -312,10 +350,16 @@
     return step && (step.title || step.t) || '';
   }
 
+  function stepHelpItems(step) {
+    if (!step) return [];
+    if (Array.isArray(step.helps)) return step.helps.filter(item => item && item.question && item.answer);
+    return step.help ? [step.help] : [];
+  }
+
   window.handleCustomHelpQuestion = async function ({ question, recipeId, stepIndex }) {
     const recipe = R(recipeId);
     const step = recipe && recipe.steps ? recipe.steps[stepIndex] : null;
-    const officialHelp = step && step.help ? step.help : null;
+    const officialHelp = stepHelpItems(step)[0] || null;
     return {
       question,
       recipeId,
@@ -350,11 +394,11 @@
 
   window.renderHelp = function () {
     const step = cur.steps[stepIdx];
-    const help = step && step.help;
-    const currentHelp = help
+    const helpItems = stepHelpItems(step);
+    const currentHelp = helpItems.length
       ? `<div class="current-help-label">현재 STEP ${stepIdx + 1}에서 자주 생기는 문제</div>
-         <div class="qa current-help-card open"><div class="qq">🙋 ${escapeHtml(help.question)}</div><div class="aa" style="display:block">→ ${escapeHtml(help.answer)}</div></div>`
-      : `<div class="current-help-label">현재 STEP ${stepIdx + 1} 도움말</div><div class="day-empty">현재 단계 도움말은 상세 원본 확인 중이에요.</div>`;
+         ${helpItems.map(help => `<div class="qa current-help-card open"><div class="qq">🙋 ${escapeHtml(help.question)}</div><div class="aa" style="display:block">→ ${escapeHtml(help.answer)}</div></div>`).join('')}`
+      : `<div class="current-help-label">현재 STEP ${stepIdx + 1} 도움말</div><div class="day-empty">현재 단계에 등록된 원문 도움말이 없어요.</div>`;
     document.getElementById('helpBody').innerHTML = `${currentHelp}
       <div class="custom-help-section">
         <h4>다른 문제가 있나요?</h4>

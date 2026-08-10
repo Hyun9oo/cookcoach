@@ -245,6 +245,46 @@
   font-weight: 800;
 }
 
+.goal-detail-group + .goal-detail-group {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(185, 130, 26, .18);
+}
+
+.goal-detail-group > strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.goal-detail-group > p {
+  margin: 0 0 7px;
+  color: var(--mute);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.guide {
+  top: 8px;
+  left: 12px;
+  right: 12px;
+  transform: none;
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(27, 26, 25, .56);
+  backdrop-filter: blur(7px);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.reticle {
+  inset: 42px 16px 16px;
+}
+
 .camera-fallback[hidden],
 .camera-sheet-backdrop[hidden] {
   display: none;
@@ -369,4 +409,84 @@
 
 .toast {
   z-index: 110;
+}
+
+@media (max-width: 430px) {
+  :root {
+    --mobile-nav-height: calc(64px + max(12px, env(safe-area-inset-bottom)));
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  body {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  .stage,
+  .phone,
+  .screen {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  .statusbar,
+  .homebar {
+    display: none;
+  }
+
+  .view {
+    top: env(safe-area-inset-top);
+  }
+
+  .splash {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .tabs {
+    height: var(--mobile-nav-height);
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .stickybar,
+  .stickybar.nobottom,
+  .coachbar {
+    bottom: var(--mobile-nav-height);
+  }
+
+  .phase2-scan-actions {
+    padding-bottom: calc(var(--mobile-nav-height) + 12px);
+  }
+
+  .pb {
+    padding-bottom: calc(var(--mobile-nav-height) + 28px);
+  }
+
+  .toast {
+    bottom: calc(var(--mobile-nav-height) + 24px);
+  }
+
+  .sheet,
+  .camera-fallback {
+    max-height: calc(100dvh - env(safe-area-inset-top) - 12px);
+  }
+
+  .scanhead,
+  .brandbar,
+  .navbar {
+    flex-shrink: 0;
+  }
+
+  .scanstage {
+    min-height: 0;
+  }
 }
