@@ -91,7 +91,7 @@
     if (!recipe) return;
 
     recipe.storageId = GYUDON_ID;
-    recipe.heroPath = `${GYUDON_MEDIA_ROOT}/hero.webp`;
+    recipe.heroPath = `${GYUDON_MEDIA_ROOT}/hero.png`;
     recipe.desc = '쯔유 소스에 소고기와 양파를 졸이고 계란을 더해 밥 위에 올리는 2인분 규동이에요.';
     recipe.ing = [
       { id: 'beef', n: '소고기', e: ingredientEmoji('beef'), amount: 200, unit: 'g', required: true },
@@ -111,7 +111,7 @@
         title: '재료손질',
         duration: 3,
         description: '준비한 소고기 200g에 소금과 후추로 조금만 뿌려 밑간을 해주세요.\n양파 반개를 0.5센치 두깨로 얇게 썰어주세요.\n계란 1개를 작은 그릇에 풀어주세요.',
-        image: `${GYUDON_MEDIA_ROOT}/step-01.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-01.png`,
         help: {
           question: '양파를 너무 두껍게 썰었어요!',
           answer: '걱정하지말아요! 익히는 과정에서 고기를 좀 덜 익힌 다음에 양파를 넣으면 됩니다. 만약, 양파가 얇다면 반대로 하면 돼요!!'
@@ -122,7 +122,7 @@
         title: '소스만들기',
         duration: 1,
         description: '쯔유6T, 미림2T, 설탕 1.5T, 물 120ml을 그릇에 설탕이 녹을 때까지 섞어주세요.',
-        image: `${GYUDON_MEDIA_ROOT}/step-02.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-02.png`,
         help: {
           question: '설탕이 잘 녹지 않아요.',
           answer: '그럴땐, 숟가락으로 바닥을 긁듯이 하면, 잘 녹아요! 계속 젓다보면 녹아요! 노력은 배신하지 않는답니다~!'
@@ -133,7 +133,7 @@
         title: '고기 및 양파 익히기',
         duration: 5,
         description: '팬을 중불로 달군 뒤 중약불로 줄여 고기를 40%만 구워주세요.\n그 후에, 양파를 같이 넣고, 양파가 투명해질때까지 구워주세요.',
-        image: `${GYUDON_MEDIA_ROOT}/step-03.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-03.png`,
         help: {
           question: '고기를 40%만 익힌 상태가 뭔지 모르겠어요.',
           answer: '저 수치는 절대적인 수치가 아니에요! 고기 겉면은 갈색으로 변했지만, 안쪽에 붉은 부분이 조금 남아있는 상태입니다.'
@@ -144,7 +144,7 @@
         title: '소스를 넣고 졸이기',
         duration: 4,
         description: '고기와 양파를 익힌 팬을 그대로 두고, 아까 만들었던 소스를 원을 그리며 넣어주세요.\n불은 약불로 줄이고 소스가 팬에 자작해질때까지 졸여주세요.\n이때 양파와 고기를 골고루 뒤집어가면서 졸여주면 더 맛있어요!',
-        image: `${GYUDON_MEDIA_ROOT}/step-04.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-04.png`,
         help: {
           question: '소스가 자작한 상태인지 모르겠어요.',
           answer: '팬을 기울였을 때, 소스가 바닥에 얇게 남아 흐르는 정도면 충분해요. 국물이 아닌 조림을 떠오르면 쉬울거에요!'
@@ -155,7 +155,7 @@
         title: '具材(구자이) 만들기',
         duration: 1,
         description: '적당히 졸여진 팬에 아까 풀어놨던 계란을 원을 그리며 넣어주세요.\n그리고 뚜껑을 덮고, 10초 뒤 불을 끄고 30초동안 뜸을 들여주세요.',
-        image: `${GYUDON_MEDIA_ROOT}/step-05.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-05.png`,
         help: {
           question: '계란이 너무 익어버렸어요.',
           answer: '바로 불을 끄고, 뚜껑을 열어주세요. 팬의 잔열로 계속 익기 때문에 가열하지 않은 화구로 팬을 이동시키면 됩니다!'
@@ -166,7 +166,7 @@
         title: '완성',
         duration: 1,
         description: '큰 그릇에 밥 400g을 담고 만들었던 구자위를 예쁘게 담아주세요.\n이때 기호에 맞게 와사비나 계란 노른자를 올려드시면 더욱 맛있습니다.',
-        image: `${GYUDON_MEDIA_ROOT}/step-06.webp`,
+        image: `${GYUDON_MEDIA_ROOT}/step-06.png`,
         help: {
           question: '밥 위에 재료를 어떻게 올려야 예쁘게 보이나요?',
           answer: '자작한 소스를 밥위에 먼저 골고루 뿌리고, 그 위에 계란으로 인해 덩어리진 구자이를 넓적한 뒤집개를 이용해 올려주세요!'
