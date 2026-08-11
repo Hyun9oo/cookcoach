@@ -17,15 +17,46 @@
 - 작동하지 않는 버튼은 제거하거나 실제 동작을 구현한다.
 - 백그라운드 디자인을 개선한다.
 - 모바일 환경과 Netlify 정적 배포에 대응한다.
-- 음식 완성 이미지와 과정 이미지는 추후 추가한다.
+- 9개 레시피의 음식 완성 이미지와 과정 이미지를 실제 정적 자산 경로로 연결한다.
 
 ## 이미지 요구사항
 
-- 현재 음식 완성 이미지와 과정별 이미지는 없는 것으로 처리한다.
+- `assets/recipes/`의 9개 레시피별 `hero.png`와 실제 STEP 수만큼의 `step-01.png` 이후 파일을 사용한다.
 - 웹 이미지나 임시 외부 이미지를 사용하지 않는다.
-- 이미지 파일이 없을 때 CookCoach UI 스타일의 placeholder를 표시한다.
-- broken image 아이콘이 노출되면 안 된다.
-- 나중에 정해진 경로와 파일명으로 이미지를 추가하면 JavaScript 수정 없이 자동 표시되어야 한다.
+- 추천 메뉴 카드, 전체 메뉴, 메뉴 상세, COACH, REVIEW와 리포트는 레시피의 공통 `heroPath` 또는 `steps[].image` source를 사용한다.
+- 이미지 로드 성공 시 실제 이미지를 표시하고 placeholder를 숨긴다.
+- 이미지 파일이 없거나 로드에 실패하면 CookCoach UI 스타일의 placeholder를 표시하며 broken image 아이콘을 노출하지 않는다.
+- 이미지는 원본 파일을 변환하지 않고 `object-fit: cover`, `object-position: center`로 표시한다.
+
+## 리마인드 설정 요구사항
+
+- 알림 Bottom Sheet에서 요리 시작 시간, 주간 영양 리포트 요일·시간, 냉장고 재촬영 주기를 사용자가 변경할 수 있다.
+- 기본값은 요리 시작 `18:00`, 주간 영양 리포트 `일요일 21:00`, 냉장고 재촬영 `7일마다`다.
+- 냉장고 재촬영 주기는 1~30일로 제한한다.
+- 설정은 `cookcoach.reminders.v1` localStorage 객체에 저장하고 새로고침 후 복원한다.
+- 현재 구현은 앱 안에서 설정값을 저장·표시하는 프로토타입이며 실제 Web Push, 백그라운드 또는 OS 알림을 전송하지 않는다.
+
+## 단계별 `도와주세요!` 요구사항
+
+- 9개 레시피의 56개 모든 STEP에서 현재 단계의 대표적인 조리 문제 1개와 해결 가이드 1개를 제공한다.
+- 도움말 Bottom Sheet는 현재 STEP의 대표 질문·답변 다음에 사용자의 자유 질문 입력 영역을 제공한다.
+- 자유 질문은 빈 문자열과 공백만으로 제출할 수 없으며, 제출 후에도 Bottom Sheet와 작성한 질문을 유지한다.
+- 자유 질문 응답은 실제 생성형 AI, 검색엔진 또는 전문가 상담 결과가 아니다. 향후 단계별 도움말 개선에 참고한다는 공통 안내만 표시한다.
+- 공통 안내는 하나의 상수에서 관리하며 같은 Bottom Sheet 안에서 중복 추가하지 않는다.
+
+## 9개 레시피 이미지 구현 상태
+
+| recipe id | hero | STEP 이미지 | 레시피 STEP | 상태 |
+| --- | --- | ---: | ---: | --- |
+| `solo-simple-tofu-inari` | `assets/recipes/solo-simple-tofu-inari/hero.png` | 5 | 5 | 연결 완료 |
+| `solo-balanced-shrimp-poke` | `assets/recipes/solo-balanced-shrimp-poke/hero.png` | 6 | 6 | 연결 완료 |
+| `solo-fancy-salmon-gnocchi` | `assets/recipes/solo-fancy-salmon-gnocchi/hero.png` | 6 | 6 | 연결 완료 |
+| `duo-simple-gyudon` | `assets/recipes/duo-simple-gyudon/hero.png` | 6 | 6 | 연결 완료 |
+| `duo-balanced-beef-shabu-shabu` | `assets/recipes/duo-balanced-beef-shabu-shabu/hero.png` | 6 | 6 | 연결 완료 |
+| `duo-fancy-garlic-butter-shrimp-lemon-pasta` | `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/hero.png` | 6 | 6 | 연결 완료 |
+| `guest-simple-gambas` | `assets/recipes/guest-simple-gambas/hero.png` | 6 | 6 | 연결 완료 |
+| `guest-balanced-tofu-vegetable` | `assets/recipes/guest-balanced-tofu-vegetable/hero.png` | 7 | 7 | 연결 완료 |
+| `guest-fancy-pork-roll` | `assets/recipes/guest-fancy-pork-roll/hero.png` | 8 | 8 | 연결 완료 |
 
 ## Phase 1 작업 범위
 
@@ -83,7 +114,7 @@
 - 건강 목표 직접 입력: Phase 3에서 기본 목표 선택과 자유 목표 추가·삭제·영구 저장을 구현했다.
 - 공유, 메모, 달력 날짜 선택: 현재 일부 버튼은 안내 toast만 표시한다.
 - 찜 상태의 브라우저 영구 저장
-- 규동 외 기존 메뉴의 최종 이미지 경로 전환: 현재 해당 메뉴들은 기존 HTML 내부 base64 이미지를 유지한다.
+- 9개 레시피의 최종 이미지 경로 전환: `assets/recipes/`의 PNG 자산과 공통 renderer 연결을 완료했다.
 
 ### 데이터 및 코드 위험
 
@@ -133,17 +164,17 @@
 
 - 실제 영수증 OCR
 - `도와주세요!` 사진 촬영과 상태 분석
-- 규동 외 메뉴의 상세 원본 동기화 및 경로 기반 이미지 전환
+- 규동 외 메뉴의 상세 원본 동기화
 - 찜 상태 localStorage 저장과 찜 목록 화면
 - 안내 toast만 있는 공유·메모·날짜 선택 버튼 정리
 - 실제 모바일 브라우저와 카메라 권한 환경에서의 최종 회귀 테스트
 
 ## Phase 3 실제 브라우저 QA 확정 요구사항
 
-- 규동 추천 카드, 전체 메뉴 목록, 메뉴 상세, REVIEW와 향후 찜 목록은 동일한 `assets/recipes/duo-simple-gyudon/hero.webp` 경로를 사용한다.
+- 규동 추천 카드, 전체 메뉴 목록, 메뉴 상세, REVIEW와 향후 찜 목록은 동일한 `assets/recipes/duo-simple-gyudon/hero.png` 경로를 사용한다.
 - 규동 hero 파일이 없거나 로드에 실패하면 `규동 · 메뉴 이미지 준비 중` placeholder를 표시한다.
-- `도와주세요!`의 다른 문제 영역은 Generic FAQ 대신 사용자 직접 입력을 제공한다.
-- 직접 입력 질문의 프로토타입 답변은 현재 레시피·STEP의 공식 `helpAnswer`만 활용하며 새 요리 지식을 생성하지 않는다.
+- `도와주세요!`의 대표 질문 외 문제 영역은 사용자 직접 입력을 제공한다.
+- 직접 입력 질문에는 실제 생성형 답변을 만들지 않고, 향후 단계별 도움말 개선에 참고한다는 공통 안내를 표시한다.
 - 식사 기록이 비어 있고 데모 seed가 생성되지 않았을 때만 최근 날짜에 상대 데모 기록을 한 번 생성한다.
 - 데모 기록은 `isDemo: true`, 실제 완료 기록은 `isDemo: false`로 구분한다.
 - 기존 식사 기록을 데모 기록으로 덮어쓰지 않는다.
@@ -156,8 +187,8 @@
 
 ## Phase 3 구현 상태
 
-- 규동 공통 hero source와 재사용 가능한 렌더링 함수 제공
-- 현재 STEP 공식 도움말과 사용자 직접 질문 프로토타입 구현, Generic FAQ 기본 UX 제거
+- 9개 레시피 공통 hero/STEP source와 재사용 가능한 렌더링 함수 제공
+- 9개 레시피 56개 STEP의 대표 질문·답변과 사용자 직접 질문 안내 UX 구현
 - 최근 6일 상대 날짜 데모 식사 기록 7개 및 하루 복수 기록 구현
 - 이름 수정과 256×256 압축 프로필 사진 localStorage 저장 구현
 - 카메라 미리보기/촬영 분리, 오류별 진단, stream 완전 해제, 재시도·사진 선택·건너뛰기 구현
@@ -218,7 +249,7 @@
 - 하단 navigation, CTA, camera controls, bottom sheet가 Safari 하단 UI와 홈 인디케이터에 가려지거나 서로 겹치지 않아야 한다.
 - SCAN 안내는 촬영 프레임 상단의 작고 반투명한 overlay로 표시해 피사체를 가리지 않는다.
 - 추천 headline은 실제 대표 카드 수와 선택 콘셉트를 사용하며 여러 메뉴의 서로 다른 조리시간을 하나로 묶어 말하지 않는다.
-- 9개 메뉴의 STEP 도움말은 `cookcoach_recipes_duo.docx` 원문에 있는 문제·해결만 연결한다. 손님 메뉴 3종은 원문에 명시된 한 단계에만 도움말을 노출한다.
+- 9개 메뉴의 56개 모든 STEP은 확정된 대표 문제·해결을 하나씩 연결한다. 기존 둘이서 3개 메뉴의 18개 도움말 문구는 변경하지 않는다.
 - 건강 목표는 체중 감량, 저나트륨, 저당, 채식 위주, 고단백별로 서로 다른 요약과 확인 기준을 표시한다. 직접 목표는 사용자 문구를 기반으로 일반적인 기록 안내만 제공한다.
 - 스트릭은 식사 기록 날짜의 중복을 제거한 뒤 오늘 또는 가장 최근 기록일부터 연속된 날짜 수를 계산하며 월 경계를 허용한다.
 - `오늘의 한 끼 기록하기`는 완료 1회당 식사 기록을 한 번만 저장하고 마이페이지를 활성화하며 오늘 캘린더에 메뉴명을 표시한다.
@@ -231,6 +262,7 @@
 - 건강 목표별 요약·확인 기준 분리 및 직접 목표 일반 추적 문구 적용 완료
 - 날짜 중복 제거와 오늘/최근 기록 anchor 기반 스트릭 계산 완료
 - 완료 token 기반 식사 중복 저장 방지, 저장 후 마이페이지 이동과 오늘 메뉴 반영 완료
+- `assets/recipes/`의 9개 레시피 hero/STEP PNG를 추천·상세·COACH·REVIEW 공통 renderer에 연결 완료
 
 ## GitHub Pages 모바일·기록 흐름 남은 범위
 

@@ -8,6 +8,11 @@
 
 .phase2-scan-actions .btn {
   min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .phase2-scan-actions .btn:first-child {
@@ -16,6 +21,85 @@
 
 .phase2-scan-actions .btn:last-child {
   flex: 1;
+}
+
+.phase2-scan-actions.capture-layout {
+  display: grid;
+  grid-template-columns: minmax(72px, 1fr) 72px minmax(72px, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.phase2-scan-actions.capture-layout #shutterBtn {
+  position: relative;
+  grid-column: 2;
+  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
+  height: 70px;
+  min-height: 70px;
+  max-height: 70px;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 70px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  justify-self: center;
+  align-self: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  font-size: 0;
+  line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: 0 0 0 3px var(--o) inset, 0 6px 16px -6px rgba(226, 78, 27, .55);
+}
+
+.phase2-scan-actions.capture-layout #shutterBtn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  min-width: 54px;
+  max-width: 54px;
+  height: 54px;
+  min-height: 54px;
+  max-height: 54px;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 54px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--o);
+}
+
+.phase2-scan-actions.capture-layout #scanSkipBtn {
+  grid-column: 3;
+  width: auto;
+  min-width: 88px;
+  min-height: 48px;
+  height: auto;
+  justify-self: center;
+  padding: 12px 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 #scanSeg button {
@@ -300,10 +384,27 @@
   color: var(--o);
   font-size: 11px;
   font-weight: 800;
+  white-space: nowrap;
+  word-break: keep-all;
+  writing-mode: horizontal-tb;
+  flex-shrink: 0;
 }
 
 .stepper {
   gap: 5px;
+}
+
+.stepper .q,
+.ingscroll .i .l small {
+  white-space: nowrap;
+  word-break: keep-all;
+  writing-mode: horizontal-tb;
+  flex-shrink: 0;
+}
+
+.ingscroll .i .l small {
+  display: block;
+  margin-top: 2px;
 }
 
 .report-thumb-media {
@@ -391,6 +492,157 @@
   color: var(--mute);
   font-size: 11.5px;
   font-weight: 700;
+}
+
+.reminder-heading {
+  margin-top: 16px;
+}
+
+.reminder-row {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: #faf7f4;
+}
+
+.reminder-icon {
+  width: 28px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--ink2);
+  font-size: 18px;
+}
+
+.reminder-fridge-icon .fridge-emoji {
+  margin-right: 0;
+  vertical-align: 0;
+}
+
+.reminder-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.reminder-copy strong,
+.reminder-copy small {
+  display: block;
+}
+
+.reminder-copy strong {
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.reminder-copy small {
+  margin-top: 2px;
+  color: var(--mute);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.reminder-controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 5px;
+}
+
+.reminder-row-weekly {
+  flex-wrap: wrap;
+}
+
+.reminder-row-weekly .reminder-controls {
+  width: 100%;
+  justify-content: flex-end;
+  padding-left: 38px;
+}
+
+.reminder-control {
+  min-height: 40px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: var(--ink2);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.reminder-control:focus {
+  border-color: var(--o);
+  box-shadow: 0 0 0 2px var(--o-l);
+}
+
+.reminder-day {
+  width: 74px;
+  flex: 0 0 74px;
+}
+
+.reminder-period {
+  width: 58px;
+  flex: 0 0 58px;
+}
+
+.reminder-clock {
+  width: 72px;
+  flex: 0 0 72px;
+}
+
+.reminder-number {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink2);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.reminder-number input {
+  width: 50px;
+  text-align: center;
+}
+
+.reminder-prototype-note {
+  margin: 11px 2px 0;
+  color: var(--mute);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 370px) {
+  .phase2-scan-actions.capture-layout {
+    grid-template-columns: minmax(64px, 1fr) 64px minmax(64px, 1fr);
+  }
+
+  .phase2-scan-actions.capture-layout #shutterBtn {
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+    height: 64px;
+    min-height: 64px;
+    max-height: 64px;
+    flex-basis: 64px;
+  }
+
+  .phase2-scan-actions.capture-layout #shutterBtn::before {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    flex-basis: 50px;
+  }
+
 }
 
 .caldark .d.has .meal-count {

@@ -5,6 +5,11 @@
   const MAX_PROFILE_NAME_LENGTH = 20;
   const MAX_HEALTH_GOAL_LENGTH = 30;
   const PROFILE_IMAGE_SIZE = 256;
+  const CUSTOM_HELP_ACKNOWLEDGEMENT = [
+    '질문 남겨주셔서 고마워요!',
+    '쿡코치가 더 좋은 답을 드릴 수 있도록 조금 더 고민해볼게요.',
+    '남겨주신 내용은 앞으로 단계별 도움말을 더 정확하게 만드는 데 참고할게요!'
+  ].join('\n');
   const phase2Capture = window.capture;
   const phase2SkipCurrentScan = window.skipCurrentScan;
   const phase2RestartScanFlow = window.restartScanFlow;
@@ -356,20 +361,10 @@
     return step.help ? [step.help] : [];
   }
 
-  window.handleCustomHelpQuestion = async function ({ question, recipeId, stepIndex }) {
-    const recipe = R(recipeId);
-    const step = recipe && recipe.steps ? recipe.steps[stepIndex] : null;
-    const officialHelp = stepHelpItems(step)[0] || null;
+  window.handleCustomHelpQuestion = async function ({ question }) {
     return {
       question,
-      recipeId,
-      stepIndex,
-      stepTitle: stepTitle(step),
-      officialAnswer: officialHelp ? officialHelp.answer : '',
-      message: officialHelp
-        ? '현재 STEP에서 먼저 확인할 부분을 안내할게요.'
-        : '현재 STEP의 공식 도움말은 원본 확인 중이에요.',
-      photoHint: '지금 상태를 사진으로 보여주면 추후 더 정확한 상태 확인 기능과 연결할 수 있어요.'
+      message: CUSTOM_HELP_ACKNOWLEDGEMENT
     };
   };
 
@@ -378,7 +373,6 @@
     const responseBox = document.getElementById('customHelpResponse');
     const question = input.value.trim();
     if (!question) {
-      toast('현재 상황을 입력해 주세요');
       input.focus();
       return;
     }
@@ -386,10 +380,7 @@
     responseBox.hidden = false;
     responseBox.innerHTML = `
       <div class="custom-help-question"><strong>내 질문</strong><span>${escapeHtml(response.question)}</span></div>
-      <div class="custom-help-demo"><strong>${escapeHtml(response.message)}</strong>
-        ${response.officialAnswer ? `<p>${escapeHtml(response.officialAnswer)}</p>` : ''}
-        <small>${escapeHtml(response.photoHint)}</small>
-      </div>`;
+      <div class="custom-help-demo"><p>${escapeHtml(response.message).replace(/\n/g, '<br>')}</p></div>`;
   };
 
   window.renderHelp = function () {

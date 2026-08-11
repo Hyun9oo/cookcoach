@@ -111,13 +111,13 @@
 
 ## 이미지 경로
 
-- hero: `assets/recipes/duo-simple-gyudon/hero.webp`
-- step-01: `assets/recipes/duo-simple-gyudon/step-01.webp`
-- step-02: `assets/recipes/duo-simple-gyudon/step-02.webp`
-- step-03: `assets/recipes/duo-simple-gyudon/step-03.webp`
-- step-04: `assets/recipes/duo-simple-gyudon/step-04.webp`
-- step-05: `assets/recipes/duo-simple-gyudon/step-05.webp`
-- step-06: `assets/recipes/duo-simple-gyudon/step-06.webp`
+- hero: `assets/recipes/duo-simple-gyudon/hero.png`
+- step-01: `assets/recipes/duo-simple-gyudon/step-01.png`
+- step-02: `assets/recipes/duo-simple-gyudon/step-02.png`
+- step-03: `assets/recipes/duo-simple-gyudon/step-03.png`
+- step-04: `assets/recipes/duo-simple-gyudon/step-04.png`
+- step-05: `assets/recipes/duo-simple-gyudon/step-05.png`
+- step-06: `assets/recipes/duo-simple-gyudon/step-06.png`
 
 # 소고기 채소 샤브샤브
 
@@ -251,13 +251,13 @@
 
 ## 이미지 경로
 
-- hero: `assets/recipes/duo-balanced-beef-shabu-shabu/hero.webp`
-- step-01: `assets/recipes/duo-balanced-beef-shabu-shabu/step-01.webp`
-- step-02: `assets/recipes/duo-balanced-beef-shabu-shabu/step-02.webp`
-- step-03: `assets/recipes/duo-balanced-beef-shabu-shabu/step-03.webp`
-- step-04: `assets/recipes/duo-balanced-beef-shabu-shabu/step-04.webp`
-- step-05: `assets/recipes/duo-balanced-beef-shabu-shabu/step-05.webp`
-- step-06: `assets/recipes/duo-balanced-beef-shabu-shabu/step-06.webp`
+- hero: `assets/recipes/duo-balanced-beef-shabu-shabu/hero.png`
+- step-01: `assets/recipes/duo-balanced-beef-shabu-shabu/step-01.png`
+- step-02: `assets/recipes/duo-balanced-beef-shabu-shabu/step-02.png`
+- step-03: `assets/recipes/duo-balanced-beef-shabu-shabu/step-03.png`
+- step-04: `assets/recipes/duo-balanced-beef-shabu-shabu/step-04.png`
+- step-05: `assets/recipes/duo-balanced-beef-shabu-shabu/step-05.png`
+- step-06: `assets/recipes/duo-balanced-beef-shabu-shabu/step-06.png`
 
 # 갈릭버터 새우 레몬 파스타
 
@@ -385,13 +385,13 @@
 
 ## 이미지 경로
 
-- hero: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/hero.webp`
-- step-01: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-01.webp`
-- step-02: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-02.webp`
-- step-03: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-03.webp`
-- step-04: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-04.webp`
-- step-05: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-05.webp`
-- step-06: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-06.webp`
+- hero: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/hero.png`
+- step-01: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-01.png`
+- step-02: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-02.png`
+- step-03: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-03.png`
+- step-04: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-04.png`
+- step-05: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-05.png`
+- step-06: `assets/recipes/duo-fancy-garlic-butter-shrimp-lemon-pasta/step-06.png`
 
 ## 원본 표기 확인 필요
 
