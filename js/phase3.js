@@ -5,6 +5,7 @@
   const MAX_PROFILE_NAME_LENGTH = 20;
   const MAX_HEALTH_GOAL_LENGTH = 30;
   const PROFILE_IMAGE_SIZE = 256;
+  const DEFAULT_PROFILE_IMAGE = 'assets/default-profile.svg';
   const CUSTOM_HELP_ACKNOWLEDGEMENT = [
     '질문 남겨주셔서 고마워요!',
     '쿡코치가 더 좋은 답을 드릴 수 있도록 조금 더 고민해볼게요.',
@@ -130,25 +131,23 @@
   function renderProfile() {
     const name = document.getElementById('profileName');
     const image = document.getElementById('profileImage');
-    const initial = document.getElementById('profileInitial');
     if (name) name.textContent = userProfile.name;
-    if (!image || !initial) return;
-    if (userProfile.profileImage) {
-      image.onload = () => {
-        image.hidden = false;
-        initial.hidden = true;
-      };
-      image.onerror = () => {
-        image.hidden = true;
-        image.removeAttribute('src');
-        initial.hidden = false;
-      };
-      image.src = userProfile.profileImage;
-    } else {
+    if (!image) return;
+
+    const loadProfileSource = (source, allowDefaultFallback) => {
       image.hidden = true;
-      image.removeAttribute('src');
-      initial.hidden = false;
-    }
+      image.onload = () => { image.hidden = false; };
+      image.onerror = () => {
+        if (allowDefaultFallback) loadProfileSource(DEFAULT_PROFILE_IMAGE, false);
+        else image.hidden = true;
+      };
+      image.src = source;
+      if (image.complete && image.naturalWidth) image.hidden = false;
+    };
+
+    const hasCustomImage = Boolean(userProfile.profileImage);
+    image.alt = hasCustomImage ? `${userProfile.name} 프로필 사진` : 'CookCoach 기본 프로필';
+    loadProfileSource(hasCustomImage ? userProfile.profileImage : DEFAULT_PROFILE_IMAGE, hasCustomImage);
   }
 
   window.openProfileEditor = function () {
@@ -179,6 +178,17 @@
     const input = document.getElementById('profilePhotoInput');
     input.value = '';
     input.click();
+  };
+
+  window.resetProfilePhoto = function () {
+    const candidate = Object.assign({}, userProfile, { profileImage: '' });
+    if (!persistUserProfile(candidate)) {
+      toast('기본 프로필로 변경하지 못했어요. 저장 공간을 확인해 주세요');
+      return;
+    }
+    userProfile = candidate;
+    renderProfile();
+    toast('기본 프로필로 변경했어요');
   };
 
   function loadImageFile(file) {

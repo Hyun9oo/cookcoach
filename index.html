@@ -454,7 +454,16 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
 <div class="phone">
   <div class="notch"></div>
   <div class="screen" id="screen">
-    <div class="statusbar"><span id="clock">9:41</span><span class="sb-r">▮▮▮ <span style="font-size:11px">📶</span> <span style="letter-spacing:-1px">🔋</span></span></div>
+    <div class="statusbar">
+      <span id="clock">9:41</span>
+      <span class="sb-r" aria-hidden="true">
+        <span class="status-cellular"><i></i><i></i><i></i><i></i></span>
+        <svg class="status-wifi" viewBox="0 0 18 14" fill="none" focusable="false">
+          <path d="M1.5 4.6C5.8 1 12.2 1 16.5 4.6M4.2 7.5c2.7-2.2 6.9-2.2 9.6 0M7.1 10.2c1.1-.9 2.7-.9 3.8 0M9 12.5h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        <span class="status-battery"><i></i></span>
+      </span>
+    </div>
     <div class="splash" id="splash">
       <div class="logo-ic"><svg viewBox="0 0 64 64" fill="none"><path d="M18 30c-5 0-9-4-9-9s4-9 9-9c1.2 0 2.3.2 3.4.7C23 8.4 27.1 6 32 6s9 2.4 10.6 6.7c1.1-.5 2.2-.7 3.4-.7 5 0 9 4 9 9s-4 9-9 9H18z" stroke="#F4622C" stroke-width="3.4" stroke-linjoin="round" fill="#FFF"/><rect x="20" y="30" width="24" height="22" rx="3" stroke="#F4622C" stroke-width="3.4" fill="#FFF"/><line x1="32" y1="34" x2="32" y2="48" stroke="#F4622C" stroke-width="3"/><circle cx="27" cy="41" r="1.6" fill="#F4622C"/></svg></div>
       <div class="wm"><b>Cook</b>Coach</div>
@@ -709,9 +718,8 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
       </div>
       <div class="scroll pad pb">
         <div class="profile-summary">
-          <button class="avatar profile-avatar" id="profileAvatar" type="button" onclick="chooseProfilePhoto()" aria-label="프로필 사진 변경">
-            <img id="profileImage" alt="프로필 사진" hidden>
-            <span id="profileInitial">👩‍🍳</span>
+          <button class="avatar profile-avatar" id="profileAvatar" type="button" onclick="openProfileEditor()" aria-label="프로필 변경">
+            <img id="profileImage" src="assets/default-profile.svg" alt="CookCoach 기본 프로필">
             <small>사진 변경</small>
           </button>
           <div class="profile-name" id="profileName">Lilya</div>
@@ -868,7 +876,7 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
           <div class="grouplabel">또는 직접 재료 추가</div>
           <label>재료명<input id="customIngName" type="text" placeholder="예: 청경채" autocomplete="off"></label>
           <div class="custom-add-row">
-            <label>수량<input id="customIngQty" type="number" min="0.01" step="any" inputmode="decimal" placeholder="예: 2"></label>
+            <label>수량<input id="customIngQty" type="number" min="0" step="1" value="1" inputmode="decimal" placeholder="예: 2"></label>
             <label>단위<select id="customIngUnit" onchange="toggleCustomUnit()">
               <option>g</option><option>kg</option><option>ml</option><option>L</option><option selected>개</option>
               <option>장</option><option>봉</option><option>팩</option><option>모</option><option>T</option><option>t</option><option>공기</option><option value="custom">기타 직접 입력</option>
@@ -960,7 +968,10 @@ h3{font-size:15px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
         <label class="sheet-field">이름
           <input id="profileNameInput" type="text" maxlength="20" autocomplete="name" placeholder="이름을 입력하세요">
         </label>
-        <button class="btn gray sm" type="button" onclick="chooseProfilePhoto()">사진 변경</button>
+        <div class="grouplabel profile-photo-heading">사진 변경</div>
+        <button class="btn gray sm" type="button" onclick="chooseProfilePhoto()">사진 선택</button>
+        <div style="height:9px"></div>
+        <button class="btn gray sm profile-default-button" type="button" onclick="resetProfilePhoto()">기본 프로필로 변경</button>
         <div style="height:9px"></div>
         <button class="btn sm" type="button" onclick="saveProfile()">저장</button>
       </div>
@@ -1222,7 +1233,10 @@ document.querySelectorAll('[data-tabs]').forEach(el=>{
 let toastT;
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),1900);}
 function openSheet(id){
-  if(id==='sheet-add')renderAdd();
+  if(id==='sheet-add'){
+    if(typeof resetCustomIngredientEditor==='function')resetCustomIngredientEditor();
+    renderAdd();
+  }
   if(id==='sheet-steps')renderStepsSheet();
   if(id==='sheet-help')renderHelp();
   if(id==='sheet-noti')renderNoti();

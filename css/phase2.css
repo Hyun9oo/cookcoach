@@ -374,10 +374,14 @@
   gap: 9px;
 }
 
-.unit-btn {
-  min-width: 33px;
+.stepper .unit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 36px;
   height: 31px;
-  padding: 0 7px;
+  padding-inline: 8px;
   border-radius: 9px;
   border: 1.3px solid var(--line);
   background: #fff;
@@ -387,11 +391,16 @@
   white-space: nowrap;
   word-break: keep-all;
   writing-mode: horizontal-tb;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  box-sizing: border-box;
 }
 
 .stepper {
-  gap: 5px;
+  gap: 6px;
+}
+
+.ing .nm {
+  min-width: 0;
 }
 
 .stepper .q,

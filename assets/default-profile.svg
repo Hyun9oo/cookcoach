@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title description">
+  <title id="title">CookCoach 기본 프로필</title>
+  <desc id="description">주황색 앞치마를 입은 셰프 캐릭터</desc>
+  <defs>
+    <linearGradient id="background" x1="38" y1="24" x2="218" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7F1"/>
+      <stop offset="1" stop-color="#FADFD2"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="128" fill="url(#background)"/>
+  <circle cx="128" cy="126" r="49" fill="#F6C9A8"/>
+  <path d="M73 237c5-43 25-67 55-67s50 24 55 67H73Z" fill="#F4622C"/>
+  <path d="M104 178c7 8 15 12 24 12s17-4 24-12v59h-48v-59Z" fill="#FFF" fill-opacity=".92"/>
+  <path d="M92 113c-17-2-25-13-23-27 2-13 12-21 25-20 4-17 17-28 34-28s30 11 34 28c13-1 23 7 25 20 2 14-6 25-23 27H92Z" fill="#FFF" stroke="#F4622C" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M92 112h72v15c0 6-5 11-11 11h-50c-6 0-11-5-11-11v-15Z" fill="#FFF" stroke="#F4622C" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="111" cy="132" r="4" fill="#3C312A"/>
+  <circle cx="145" cy="132" r="4" fill="#3C312A"/>
+  <path d="M114 151c8 7 20 7 28 0" fill="none" stroke="#9B563C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M128 191v45" stroke="#F4622C" stroke-width="3" opacity=".25"/>
+</svg>

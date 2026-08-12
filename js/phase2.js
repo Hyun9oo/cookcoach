@@ -744,6 +744,18 @@
     document.getElementById('customUnitWrap').hidden = !isCustom;
   };
 
+  window.resetCustomIngredientEditor = function () {
+    const nameInput = document.getElementById('customIngName');
+    const quantityInput = document.getElementById('customIngQty');
+    const unitSelect = document.getElementById('customIngUnit');
+    const customUnitInput = document.getElementById('customIngCustomUnit');
+    if (nameInput) nameInput.value = '';
+    if (quantityInput) quantityInput.value = '1';
+    if (unitSelect) unitSelect.value = '개';
+    if (customUnitInput) customUnitInput.value = '';
+    if (unitSelect) toggleCustomUnit();
+  };
+
   function resolveIngredientId(name) {
     const trimmed = name.trim();
     const aliases = { 계란: 'egg', 달걀: 'egg', 소고기: 'beef', 밥: 'rice', 쯔유: 'tsuyu', 미림: 'mirin', 설탕: 'sugar' };
@@ -790,7 +802,7 @@
       target.push(pantryItem(id, name, quantity, unit, 7));
     }
     nameInput.value = '';
-    quantityInput.value = '';
+    quantityInput.value = '1';
     customUnitInput.value = '';
     unitSelect.value = '개';
     toggleCustomUnit();
