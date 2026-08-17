@@ -515,8 +515,8 @@
     }
     if (name === 'NotReadableError' || name === 'TrackStartError') {
       return {
-        title: '카메라를 지금 사용할 수 없어요',
-        message: '카메라가 다른 앱에서 사용 중이거나 현재 사용할 수 없어요.'
+        title: '카메라 촬영은 모바일에서 이용해주세요',
+        message: '현재 기기에서는 카메라 촬영이 원활하지 않을 수 있어요. 스마트폰에서 CookCoach를 열어 촬영하거나, 아래에서 사진을 선택해주세요.'
       };
     }
     if (enumerationSucceeded && videoInputCount === 0) {
