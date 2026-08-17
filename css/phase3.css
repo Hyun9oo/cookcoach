@@ -114,8 +114,12 @@
   height: 100%;
   display: block;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+}
+
+.profile-avatar img.is-custom-profile {
+  object-fit: cover;
 }
 
 .profile-avatar small {
@@ -489,6 +493,46 @@
   }
 }
 
+/* Keep weekday labels and dates on one browser-independent 7-column track. */
+#accCal .caldark {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 14px;
+  box-sizing: border-box;
+}
+
+#accCal .caldark .dow,
+#accCal .caldark .grid {
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: 3px;
+  box-sizing: border-box;
+}
+
+#accCal .caldark .dow > *,
+#accCal .caldark .grid > * {
+  min-width: 0;
+}
+
+#accCal .caldark .d {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+  align-self: center;
+  justify-self: center;
+  box-sizing: border-box;
+}
+
+#accCal .caldark .d.has .meal-count {
+  max-width: calc(100% - 4px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 @media (max-width: 430px) {
   :root {
     --mobile-nav-height: calc(64px + max(12px, env(safe-area-inset-bottom)));
@@ -566,29 +610,6 @@
 
   .scanstage {
     min-height: 0;
-  }
-
-  #accCal .caldark {
-    width: 100%;
-    margin-inline: auto;
-    box-sizing: border-box;
-  }
-
-  #accCal .caldark .dow,
-  #accCal .caldark .grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    column-gap: 3px;
-    box-sizing: border-box;
-  }
-
-  #accCal .caldark .d {
-    width: 100%;
-    min-width: 0;
-    align-self: center;
-    justify-self: center;
-    box-sizing: border-box;
   }
 
   #accCal .caldark .foot {

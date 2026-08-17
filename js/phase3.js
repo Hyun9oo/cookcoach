@@ -134,11 +134,12 @@
     if (name) name.textContent = userProfile.name;
     if (!image) return;
 
-    const loadProfileSource = (source, allowDefaultFallback) => {
+    const loadProfileSource = (source, allowDefaultFallback, isCustomSource) => {
       image.hidden = true;
+      image.classList.toggle('is-custom-profile', Boolean(isCustomSource));
       image.onload = () => { image.hidden = false; };
       image.onerror = () => {
-        if (allowDefaultFallback) loadProfileSource(DEFAULT_PROFILE_IMAGE, false);
+        if (allowDefaultFallback) loadProfileSource(DEFAULT_PROFILE_IMAGE, false, false);
         else image.hidden = true;
       };
       image.src = source;
@@ -147,7 +148,7 @@
 
     const hasCustomImage = Boolean(userProfile.profileImage);
     image.alt = hasCustomImage ? `${userProfile.name} 프로필 사진` : 'CookCoach 기본 프로필';
-    loadProfileSource(hasCustomImage ? userProfile.profileImage : DEFAULT_PROFILE_IMAGE, hasCustomImage);
+    loadProfileSource(hasCustomImage ? userProfile.profileImage : DEFAULT_PROFILE_IMAGE, hasCustomImage, hasCustomImage);
   }
 
   window.openProfileEditor = function () {
